@@ -1,0 +1,18 @@
+global-styling:
+  css:
+    theme:
+      css/bootstrap.css: {}
+      css/font-awesome.css: {}
+      css/custom.css: {}
+      css/tmp.css: {}
+
+bootstrap-scripts:
+  js:
+    js/popper.min.js: {}
+    js/bootstrap.min.js: {}
+    js/bootstrap-toolkit.js: {}
+    js/custom.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings

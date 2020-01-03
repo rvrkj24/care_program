@@ -1,0 +1,65 @@
+<div id='top-header'>
+  <div class='container-fluid'>
+    <div class='top-header-content'>
+      {% if page.followus %}
+      <div id="followus" class="followus-section p-1 col">
+        {{ page.followus }}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="navlogosearch">
+  <div class="container-fluid">
+    <div class="row">
+
+      <div id="logo-header" class="col-xl-2 col-lg-9 col-md-8 col-sm-8 col-4 order-xl-1 order-lg-2 order-md-2 order-2">
+        {% if page.branding %}
+        <div id="branding" class="branding-section text-center">
+          {{ page.branding }}
+        </div>
+        {% endif %}
+      </div>
+
+
+
+      {# Navbar #}
+      <div id="main-navigation" class="col-xl-9 col-lg-2 col-md-2 col-sm-2 col-4 order-lg-1 order-md-1 order-sm-1 order-1">
+        <div class="responsive-navbar">
+          <div class="row main-navigation-content">
+            {% if page.navigation or page.navigation_collapsible %}
+            {% block navbar %}
+            {%
+            set navbar_classes = [
+            'navbar',
+            theme.settings.navbar_inverse ? 'navbar-inverse' : 'navbar-default',
+            theme.settings.navbar_position ? 'navbar-' ~ theme.settings.navbar_position|clean_class : container,
+            ]
+            %}
+            <header {{ navbar_attributes.addClass(navbar_classes) }} id="navbar" role="banner">
+
+              <div class="navbar-header">
+                {{ page.navigation }}
+              </div>
+
+              {# Navigation (collapsible) #}
+              {% if page.navigation_collapsible %}
+              <div id="navbar-collapse" class="navbar-collapse collapse">
+                {{ page.navigation_collapsible }}
+              </div>
+              {% endif %}
+            </header>
+            {% endblock %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="search-bar-trigger col order-3"><span class="search-icon-container"><div class="search-content"></div></span><span
+          class="close-icon-container"><div class="close-search"></div></span></div>
+    </div>
+  </div>
+</div>

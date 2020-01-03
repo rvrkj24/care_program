@@ -1,0 +1,119 @@
+{#
+/**
+ * @file
+ * Default view template to display all the fields in a row.
+ *
+ * Available variables:
+ * - view: The view in use.
+ * - fields: A list of fields, each one contains:
+ *   - content: The output of the field.
+ *   - raw: The raw data for the field, if it exists. This is NOT output safe.
+ *   - class: The safe class ID to use.
+ *   - handler: The Views field handler controlling this field.
+ *   - inline: Whether or not the field should be inline.
+ *   - wrapper_element: An HTML element for a wrapper.
+ *   - wrapper_attributes: List of attributes for wrapper element.
+ *   - separator: An optional separator that may appear before a field.
+ *   - label: The field's label text.
+ *   - label_element: An HTML element for a label wrapper.
+ *   - label_attributes: List of attributes for label wrapper.
+ *   - label_suffix: Colon after the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ *   - has_label_colon: A boolean indicating whether to display a colon after
+ *     the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ * - row: The raw result from the query, with all data it fetched.
+ *
+ * @see template_preprocess_views_view_fields()
+ *
+ * @ingroup themeable
+ */
+#}
+
+<div class="archive-of-talks-row-container">
+{% for field in fields -%}
+  {# {% if field.label == 'image' %}
+    <div class="image-continer d-block">
+    <div class="video-talk-image">
+      {{ field.content }}
+    </div>
+  </div>
+  {%- endif %} #}
+  {% if field.label == 'title' %}
+    <div class="d-block other-contents-container">
+    <h4>{{ field.content }}</h4>
+  {%- endif %}
+  {% if field.label == 'authored_on' %}
+    <div class="authored_on"><span class="font-italic">{{ field.content -}}</span></div>
+  {%- endif %}
+  {% if field.label == 'inline_audio' %}
+    <div class="inline_audio">{{ field.content -}}</div>
+  {%- endif %}
+  {% if field.label == 'description' %}
+    <div class="description pb-3">{{ field.content -}}</div>
+  {%- endif %}
+   {% if field.label == 'div_start' %}
+    <div class="btn-wrapper action-button-container">
+  {%- endif %}
+  {% if field.label == 'preceptor_audio' and field.content|length > 1 %}
+    {% set rand_id = random() %}
+   
+      
+        <div class="row">
+        <div class="d-flex mr-3 mb-3">
+		<a  href="{{fields.view_node.content}}">
+            <button class="btn purple-btn-bg gotham-book">
+              <img src="/sites/default/files/headset.png"> Listen Audio</button>
+            </div>
+			</a>
+        </div>
+        
+
+       
+  {%- endif %}
+  {% if field.label == 'preceptor_transcript' and field.content|length > 1 %}
+    {% set rand_id = random() %}
+      <a class="modal-trigger transcript-modal-trigger" data-toggle="modal" href="{{fields.view_node.content}}">
+        
+        <div class="row">
+        <div class="d-flex mr-3 mb-3"> 
+		<a  href="{{fields.view_node.content}}">
+		
+            <button class="btn purple-btn-bg gotham-book">
+              <img src="/sites/default/files/doc.png"> Read Transcript</button>
+            </div> </a>
+        </div>
+       
+
+       
+  {%- endif %}
+  {% if field.label == 'preceptor_videos' and field.content|length > 1 %}
+    {% set rand_id = random() %}
+    
+      
+        <div class="row">
+        <div class="d-flex mr-3 mb-3">
+		 <a  href="{{fields.view_node.content}}">
+            <button class="btn purple-btn-bg gotham-book">
+              <img src="/sites/default/files/watch-video.png"> Watch Video</button>
+            </div> </a>
+        </div>
+       
+
+       
+  {%- endif %}
+  {% if field.label == 'counter' %}
+
+  {%- endif %}
+  
+  
+{%- endfor %}
+</div>
+</div>
+</div>
+
+  
+  
+

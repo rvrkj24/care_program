@@ -1,0 +1,41 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a menu.
+ *
+ * Available variables:
+ * - menu_name: The machine name of the menu.
+ * - items: A nested list of menu items. Each menu item contains:
+ *   - attributes: HTML attributes for the menu item.
+ *   - below: The menu item child items.
+ *   - title: The menu link title.
+ *   - url: The menu link url, instance of \Drupal\Core\Url
+ *   - localized_options: Menu link localized options.
+ *
+ * @ingroup templates
+ */
+#}
+
+
+<div class="user-profile-account">
+ <nav class="navbar navbar-expand-lg navbar-light bg-light"> 
+ 
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+        {% if user_display_name %}
+      <li class="nav-item dropdown user-pro">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{user_display_name}}          
+        </a>
+        <div class="dropdown-menu submenuitems" aria-labelledby="navbarDropdown">	
+          <a class="dropdown-item" href="{{my_account_url}}" target="_blank">My Account</a>
+          <a class="dropdown-item useracc" href="{{logout_redirect}}?next={{url('<front>')}}/user/logout">Logout</a>     
+        </div>
+      </li>       
+        {% endif %}
+     
+    </ul>
+   
+  </div>
+ </nav>
+</div>

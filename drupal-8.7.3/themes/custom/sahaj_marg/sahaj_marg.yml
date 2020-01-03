@@ -1,0 +1,17 @@
+core: 8.x
+type: theme
+
+name: 'Sahaj Marg'
+description: 'Uses the Bootstrap framework Sass source files and must be compiled (not for beginners).'
+package: 'Bootstrap'
+
+regions:
+  branding: 'Branding'
+  navigation: 'Navigation'
+  highlighted: 'Highlighted'
+  content: 'Content'
+  footer: 'Footer'
+
+libraries:
+  - 'sahaj_marg/global-styling'
+  - 'sahaj_marg/bootstrap-scripts'

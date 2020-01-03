@@ -1,0 +1,48 @@
+<div aria-multiselectable="true" class="panel-group sidebar-menu" id="accordion" role="tablist">
+{% set i = 1 %}
+{% for menu_item in menu_items.subtree %}
+  {% set active_class = menu_item.in_active_trail ? 'is-active' : '' %}
+  <div class="panel panel-default">
+    <div class="panel-heading" id="heading{{ i }}" role="tab">
+        <h5 class="panel-title mt-2"><span>
+          {% if menu_item.url %}
+            <a class="{{ active_class }}" href="{{ menu_item.url }}">{{ menu_item.title }}</a>
+          {% else %}
+            <span class="{{ active_class }}">{{ menu_item.title }}</span>
+          {% endif %}
+        </span>
+    {% if menu_item.subtree %}
+        <a class="collapsed collapse-handle" aria-controls="collapse{{ i }}" aria-expanded="false" data-parent="#accordion" data-toggle="collapse" href="#collapse{{ i }}">&nbsp;</a></h5>
+      </div>
+      {{ _self.sidebar_menu_inner_links(menu_item.subtree,i) }}
+    {% else %}
+      </h5></div>
+    {% endif %}
+  </div>
+  {% set i = i + 1 %}
+{% endfor %}
+
+
+
+</div>
+
+
+{% macro sidebar_menu_inner_links(items,i) %}
+  {% if items %}   
+    <div aria-labelledby="heading{{ i }}" class="panel-collapse collapse in" id="collapse{{ i }}" role="tabpanel">
+      {% for item in items %}
+        {% set active_class = item.in_active_trail ? 'is-active' : '' %}
+        <p class="panel-body">
+          {% if item.url %}
+          <a class="{{ active_class }}" href="{{ item.url }}">{{ item.title }}</a>
+          {% else %}
+            <span class="{{ active_class }}">{{ item.title }}</span>
+          {% endif %}
+        </p>
+        {% if item.subtree %}
+          {{ _self.sidebar_menu_links(item.subtree) }}
+        {% endif %}
+      {% endfor %}
+     </div>
+  {% endif %}
+{% endmacro %}

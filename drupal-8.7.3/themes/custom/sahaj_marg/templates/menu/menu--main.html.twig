@@ -1,0 +1,78 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a menu.
+ *
+ * Available variables:
+ * - menu_name: The machine name of the menu.
+ * - items: A nested list of menu items. Each menu item contains:
+ *   - attributes: HTML attributes for the menu item.
+ *   - below: The menu item child items.
+ *   - title: The menu link title.
+ *   - url: The menu link url, instance of \Drupal\Core\Url
+ *   - localized_options: Menu link localized options.
+ *
+ * @ingroup templates
+ *
+ * Define a custom macro that will render all menu trees.
+ */
+#}
+{{ devel_breakpoint() }}
+{% macro menu_links(items, attributes, menu_level, classes, child_link) %}
+	{% if items %}
+		<ul class="dropdown-menu">
+      <li class="d-xl-none"><a href="{{ child_link.url }}">{{ child_link.title }}</a> </li>
+      	 {% for item in items %}
+          {% set active_class = item.in_active_trail ? 'is-active' %}
+      	{% if item.is_expanded and item.below %}
+      		<li>
+
+      			<a  class="dropdown-item smd-link dropdown-toggle {{ active_class }}" href="{{ item.url }}" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{ item.title }}
+              </a>
+              {% if item.below %}
+                 {% set child_link = {'title': item.title, 'url': item.url} %}
+				        {{ _self.menu_links(item.below, attributes.removeClass(classes), menu_level + 1, classes, child_link) }}
+				      {% endif %}
+      		</li>
+      	{% else %}
+      		<li>
+              <a class="dropdown-item {{ active_class }}" href="{{ item.url }}">{{ item.title }} </a>
+          </li>
+      	{% endif %}
+      {% endfor %}
+      </ul>
+	{% endif %}
+{% endmacro %}
+
+<nav class="navbar navbar-expand-xl sahajmarg-hover-menu custom-carets">
+<div class="header-menu">
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+  	{% if items %}
+      <ul class="navbar-nav">
+      	 {% for item in items %}
+          {% set active_class = item.in_active_trail ? 'is-active' %}
+      	{% if menu_level == 0 and item.is_expanded and item.below %}
+      		<li class="nav-item dropdown">
+      			<a class="nav-link smd-link dropdown-toggle {{ active_class }}" href="{{ item.url }}" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{ item.title }}
+              </a>
+              {% if item.below %}
+                {% set child_link = {'title': item.title, 'url': item.url} %}
+				        {{ _self.menu_links(item.below, attributes.removeClass(classes), menu_level + 1, classes, child_link) }}
+				      {% endif %}
+      		</li>
+      	{% else %}
+      		<li class="nav-item">
+              <a class="nav-link {{ active_class }}" href="{{ item.url }}">{{ item.title }} </a>
+          </li>
+      	{% endif %}
+      {% endfor %}
+      </ul>
+  	{% endif %}
+  </div>
+  </div>
+</nav>
